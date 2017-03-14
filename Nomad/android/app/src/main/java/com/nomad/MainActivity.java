@@ -1,5 +1,9 @@
 package com.nomad;
 
+import android.content.Intent;
+import android.os.Bundle;
+import com.facebook.react.ReactRootView;
+
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -12,4 +16,16 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "Nomad";
     }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //Intent myIntent = new Intent(this, AppLauncher.class);
+        //startActivity(myIntent);
+    }
+
+
+
 }
