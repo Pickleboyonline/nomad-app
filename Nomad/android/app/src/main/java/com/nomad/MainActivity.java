@@ -22,8 +22,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Intent myIntent = new Intent(this, AppLauncher.class);
-        //startActivity(myIntent);
+        Intent myIntent = new Intent(this, AppLauncher.class);
+        startActivity(myIntent);
     }
 
 

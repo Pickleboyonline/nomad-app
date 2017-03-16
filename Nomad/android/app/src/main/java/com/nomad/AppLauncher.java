@@ -1,8 +1,10 @@
 package com.nomad;
 
+import android.content.Context;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 
 
 import com.facebook.react.ReactInstanceManager;
@@ -19,14 +21,16 @@ public class AppLauncher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReactRootView = new ReactRootView(this);
+        //mReactRootView = new ReactRootView(this);
+        createReactNativeView(this);
+        //R.layout.activity_app_launcher
+        Button button = (Button) findViewById(R.id.button);
 
-        /*JSBundleLoader jsBundleLoader = new JSBundleLoader() {
-            @Override
-            public void loadScript(ReactBridge reactBridge) {
-                reactBridge.loadScriptFromFile("/sdcard/Download/index.android.bundle", "/sdcard/Download/index.android.bundle");
-            }
-        };*/
+        setContentView(mReactRootView);
+    }
+
+    protected void createReactNativeView(Context context) {
+        mReactRootView = new ReactRootView(context);
         String sdDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         String bundleFile = sdDir + "/Download/index.android.bundle";
         mReactInstanceManager = ReactInstanceManager.builder()
@@ -37,7 +41,7 @@ public class AppLauncher extends AppCompatActivity {
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
         mReactRootView.startReactApplication(mReactInstanceManager, "Nomad", null);
-        //R.layout.activity_app_launcher
-        setContentView(mReactRootView);
     }
+
+
 }

@@ -18,4 +18,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="136dp"
         android:id="@+id/textView" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="69dp"
+        android:id="@+id/button" />
 </RelativeLayout>
