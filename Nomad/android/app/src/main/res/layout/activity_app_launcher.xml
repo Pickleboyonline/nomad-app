@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.nomad.AppLauncher">
+    tools:context="com.omniawe.nomad.AppLauncher">
 
     <TextView
         android:text="Hello"
@@ -23,11 +23,12 @@
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="119dp"
+        android:id="@+id/button"
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginTop="69dp"
-        android:id="@+id/button" />
+        android:layout_alignEnd="@+id/textView" />
+
 </RelativeLayout>

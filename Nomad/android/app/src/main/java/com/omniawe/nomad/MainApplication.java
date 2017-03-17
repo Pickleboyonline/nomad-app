@@ -1,4 +1,4 @@
-package com.nomad;
+package com.omniawe.nomad;
 
 import android.app.Application;
 
@@ -10,6 +10,8 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -35,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

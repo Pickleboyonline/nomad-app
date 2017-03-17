@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1049587414675",
+    "firebase_url": "https://nomad-d9626.firebaseio.com",
+    "project_id": "nomad-d9626",
+    "storage_bucket": "nomad-d9626.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049587414675:android:d702f21d13458d1d",
+        "android_client_info": {
+          "package_name": "com.nomad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049587414675-a9ddtlmlln6uv6mga40uraptq1gt57ht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nomad",
+            "certificate_hash": "1f5c34a03e1df6b185155d14e6b2c73f99f1c348"
+          }
+        },
+        {
+          "client_id": "1049587414675-gihlfnu2po2c5c05hqnb6edt8lr38fgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAapsK0HY3ejuz9hc-1YJKwc_iNnM15aVw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049587414675-gihlfnu2po2c5c05hqnb6edt8lr38fgu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
