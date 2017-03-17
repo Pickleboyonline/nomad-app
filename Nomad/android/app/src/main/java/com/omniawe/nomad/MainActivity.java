@@ -1,10 +1,10 @@
-package com.nomad;
+package com.omniawe.nomad;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.facebook.react.ReactRootView;
-
 import com.facebook.react.ReactActivity;
+
+
 
 public class MainActivity extends ReactActivity {
 
@@ -23,8 +23,11 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent myIntent = new Intent(this, AppLauncher.class);
-        startActivity(myIntent);
+        //startActivity(myIntent);
+        // Build GoogleApiClient with AppInvite API for receiving deep links
     }
+
+
 
 
 
