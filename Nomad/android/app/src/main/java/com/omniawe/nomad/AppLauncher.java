@@ -2,7 +2,9 @@ package com.omniawe.nomad;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +24,17 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Map;
 
 
@@ -30,10 +43,16 @@ public class AppLauncher extends AppCompatActivity {
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     public String mjsondata = "";
+    Context context = this.getBaseContext();
+    private String mBundleFilePath = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mReactRootView = new ReactRootView(this);
+        
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         //R.layout.activity_app_launcher
         //Button button = (Button) findViewById(R.id.button);
@@ -55,6 +74,15 @@ public class AppLauncher extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.i("REQUEST", response);
                         setJsonData(response);
+                        File file = new File(AppLauncher.this.getCacheDir(), "index.android.bundle");
+                        try{
+                            downloadJSBundle(file);
+                        }
+                        catch (JSONException | IOException e ) {
+                            Log.i("JSON Data", e.toString());
+                        }
+                        setFileDir(file);
+                        createReactNativeView(AppLauncher.this);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -64,8 +92,12 @@ public class AppLauncher extends AppCompatActivity {
         });
         queue.add(stringRequest);
 
-        createReactNativeView(this);
-        setContentView(mReactRootView);
+
+
+
+
+
+
     }
     public void setJsonData(String str) {
         mjsondata = str;
@@ -77,8 +109,29 @@ public class AppLauncher extends AppCompatActivity {
         return map;
     }
 
+    public void setFileDir(File file) {
+        mBundleFilePath = file.getPath();
+    }
 
+    private void downloadJSBundle(File file) throws JSONException, IOException{
+        JSONObject jObj = new JSONObject(mjsondata);
+        String bundleUrl = jObj.getString("bundleUrl");
+        URL url = new URL("http://192.168.1.70:4567/" + bundleUrl + "index.android.bundle");
 
+        URLConnection uconn = url.openConnection();
+        uconn.setReadTimeout(30000);
+        uconn.setConnectTimeout(30000);
+        InputStream is = uconn.getInputStream();
+        BufferedInputStream bufferinstream = new BufferedInputStream(is);
+        FileOutputStream fos = new FileOutputStream(file);
+
+        int current = 0;
+        while ((current = bufferinstream.read()) != -1) {
+            fos.write(current);
+        }
+        bufferinstream.close();
+
+    }
 
     protected void createReactNativeView(Context context) {
         mReactRootView = new ReactRootView(context);
@@ -86,13 +139,16 @@ public class AppLauncher extends AppCompatActivity {
         String bundleFile = sdDir + "/Download/index.android.bundle";
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setJSBundleFile(bundleFile)
+                .setJSBundleFile(mBundleFilePath)
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
         mReactRootView.startReactApplication(mReactInstanceManager, "Nomad", null);
+        setContentView(mReactRootView);
     }
 
+    /*private class DownloadTask extends AsyncTask<String, Integer, String> {
 
+    }*/
 }
