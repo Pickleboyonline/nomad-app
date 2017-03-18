@@ -1,13 +1,17 @@
 package com.omniawe.nomad;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 
 import com.android.volley.Request;
@@ -22,6 +26,7 @@ import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.primitives.Booleans;
 
 
 import org.json.JSONException;
@@ -39,20 +44,20 @@ import java.util.Map;
 
 
 
-public class AppLauncher extends AppCompatActivity {
+public class AppLauncher extends Activity {
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     public String mjsondata = "";
-    Context context = this.getBaseContext();
+
     private String mBundleFilePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mReactRootView = new ReactRootView(this);
-        
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
 
         //R.layout.activity_app_launcher
         //Button button = (Button) findViewById(R.id.button);
@@ -63,26 +68,28 @@ public class AppLauncher extends AppCompatActivity {
         Log.i("DATA", data.get("key"));
         String appID = data.get("id");
 
+
+        new DownloadDataTask().execute(appID);
+
+        //Server stuff **PUT IN ASYNC TASK**
         //set up request to server
-        RequestQueue queue = Volley.newRequestQueue(this);
+
+        setContentView(R.layout.activity_app_launcher);
+        ImageView myImage = (ImageView) findViewById(R.id.imageView);
+        myImage.getLayoutParams().height = 40;
+        myImage.getLayoutParams().width = 40;
+
+        RequestQueue queue = Volley.newRequestQueue(AppLauncher.this);
         String urlRequest ="http://192.168.1.70:4567/data?id=" + appID;
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlRequest,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i("REQUEST", response);
-                        setJsonData(response);
-                        File file = new File(AppLauncher.this.getCacheDir(), "index.android.bundle");
-                        try{
-                            downloadJSBundle(file);
-                        }
-                        catch (JSONException | IOException e ) {
-                            Log.i("JSON Data", e.toString());
-                        }
-                        setFileDir(file);
-                        createReactNativeView(AppLauncher.this);
+                        Log.i("hello", "hello");
+                        new DownloadAssets().execute(response);
+                        new DownloadDataTask().execute(response);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -94,14 +101,8 @@ public class AppLauncher extends AppCompatActivity {
 
 
 
-
-
-
-
     }
-    public void setJsonData(String str) {
-        mjsondata = str;
-    }
+
 
     public Map<String, String> parser(String url) {
         String query = url.split("\\?")[1];
@@ -109,46 +110,126 @@ public class AppLauncher extends AppCompatActivity {
         return map;
     }
 
-    public void setFileDir(File file) {
-        mBundleFilePath = file.getPath();
-    }
+    private  void startReactNative(String s) {
+        mReactRootView = new ReactRootView(AppLauncher.this);
 
-    private void downloadJSBundle(File file) throws JSONException, IOException{
-        JSONObject jObj = new JSONObject(mjsondata);
-        String bundleUrl = jObj.getString("bundleUrl");
-        URL url = new URL("http://192.168.1.70:4567/" + bundleUrl + "index.android.bundle");
-
-        URLConnection uconn = url.openConnection();
-        uconn.setReadTimeout(30000);
-        uconn.setConnectTimeout(30000);
-        InputStream is = uconn.getInputStream();
-        BufferedInputStream bufferinstream = new BufferedInputStream(is);
-        FileOutputStream fos = new FileOutputStream(file);
-
-        int current = 0;
-        while ((current = bufferinstream.read()) != -1) {
-            fos.write(current);
-        }
-        bufferinstream.close();
-
-    }
-
-    protected void createReactNativeView(Context context) {
-        mReactRootView = new ReactRootView(context);
-        String sdDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String bundleFile = sdDir + "/Download/index.android.bundle";
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setJSBundleFile(mBundleFilePath)
+                .setJSBundleFile(s)
                 .addPackage(new MainReactPackage())
-                .setUseDeveloperSupport(BuildConfig.DEBUG)
+                .setUseDeveloperSupport(false)//BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
         mReactRootView.startReactApplication(mReactInstanceManager, "Nomad", null);
         setContentView(mReactRootView);
     }
 
-    /*private class DownloadTask extends AsyncTask<String, Integer, String> {
 
-    }*/
+
+
+    private class DownloadDataTask extends AsyncTask<String, Integer, String> {
+        private String str = "sadac";
+        private Boolean bool = false;
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+                        // Display the first 500 characters of the response string.
+                        //Log.i("REQUEST", response);
+                        //setJsonData(response);
+                        //DownloadAssets asset = new DownloadAssets();
+                        //asset.execute(mjsondata);
+                        File file = new File(AppLauncher.this.getCacheDir(), "index.android.bundle");
+                        try{
+
+                            JSONObject jObj = new JSONObject(params[0]);
+                            String bundleUrl = jObj.getString("bundleUrl");
+                            URL url = new URL("http://192.168.1.70:4567/" + bundleUrl + "index.android.bundle");
+
+                            URLConnection uconn = url.openConnection();
+                            uconn.setReadTimeout(30000);
+                            uconn.setConnectTimeout(30000);
+                            InputStream is = uconn.getInputStream();
+                            BufferedInputStream bufferinstream = new BufferedInputStream(is);
+                            FileOutputStream fos = new FileOutputStream(file);
+
+                            int current = 0;
+                            while ((current = bufferinstream.read()) != -1) {
+                                fos.write(current);
+                            }
+                            bufferinstream.close();
+                            Log.i("FINISHED", "FINISHED");
+                            str = file.getAbsolutePath();
+                            bool = true;
+
+                        }
+                        catch (JSONException | IOException e ) {
+                            //Log.i("JSON Data", e.toString());
+                        }
+                        //setFileDir(file);
+                        //createReactNativeView(AppLauncher.this);
+
+            return file.getAbsolutePath();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.i("MAIN thread", s);
+
+            if (bool) {
+                startReactNative(str);
+            }
+
+
+
+
+
+        }
+    }
+
+    private class DownloadAssets extends AsyncTask<String, Integer, String> {
+        private Bitmap bitmap;
+        @Override
+        protected String doInBackground(String... params)  {
+            File file = new File(AppLauncher.this.getCacheDir(), "icon.png");
+            try {
+
+                JSONObject jObj = new JSONObject(params[0]);
+                String iconUrl = jObj.getString("iconUrl");
+                //String appName = jObj.getString("name");
+                URL url = new URL("http://192.168.1.70:4567/" + iconUrl);
+
+                URLConnection uconn = url.openConnection();
+                uconn.setReadTimeout(30000);
+                uconn.setConnectTimeout(30000);
+                InputStream is = uconn.getInputStream();
+                BufferedInputStream bufferinstream = new BufferedInputStream(is);
+                FileOutputStream fos = new FileOutputStream(file);
+
+                int current = 0;
+                while ((current = bufferinstream.read()) != -1) {
+                    fos.write(current);
+                }
+                bufferinstream.close();
+                Log.i("FINISHED", "FINISHED");
+
+            }
+            catch (JSONException | IOException e){
+                //do something
+            }
+             bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            return file.getPath();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("MAIN thread", "hello");
+            ImageView myImage = (ImageView) findViewById(R.id.imageView);
+            myImage.setImageBitmap(bitmap);
+        }
+    }
 }
