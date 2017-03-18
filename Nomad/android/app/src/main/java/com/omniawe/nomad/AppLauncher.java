@@ -3,6 +3,7 @@ package com.omniawe.nomad;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -44,7 +45,7 @@ import java.util.Map;
 
 
 
-public class AppLauncher extends Activity {
+public class AppLauncher extends AppCompatActivity {
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     public String mjsondata = "";
@@ -76,8 +77,8 @@ public class AppLauncher extends Activity {
 
         setContentView(R.layout.activity_app_launcher);
         ImageView myImage = (ImageView) findViewById(R.id.imageView);
-        myImage.getLayoutParams().height = 40;
-        myImage.getLayoutParams().width = 40;
+        myImage.getLayoutParams().height = dpToPx(190);
+        myImage.getLayoutParams().width = dpToPx(190);
 
         RequestQueue queue = Volley.newRequestQueue(AppLauncher.this);
         String urlRequest ="http://192.168.1.70:4567/data?id=" + appID;
@@ -103,6 +104,15 @@ public class AppLauncher extends Activity {
 
     }
 
+    public static int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static int pxToDp(int px)
+    {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
 
     public Map<String, String> parser(String url) {
         String query = url.split("\\?")[1];
