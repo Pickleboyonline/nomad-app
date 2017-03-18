@@ -46,7 +46,7 @@ public class AppLauncher extends AppCompatActivity {
 
         //set up request to server
         RequestQueue queue = Volley.newRequestQueue(this);
-        String urlRequest ="http://192.168.1.70:4567/apps?id=" + appID;
+        String urlRequest ="http://192.168.1.70:4567/data?id=" + appID;
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlRequest,
                 new Response.Listener<String>() {
@@ -63,7 +63,6 @@ public class AppLauncher extends AppCompatActivity {
             }
         });
         queue.add(stringRequest);
-
 
         createReactNativeView(this);
         setContentView(mReactRootView);
