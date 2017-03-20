@@ -88,7 +88,7 @@ public class AppLauncher extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i("hello", "hello");
-                        new DownloadAssets().execute(response);
+                        //new DownloadAssets().execute(response);
                         new DownloadDataTask().execute(response);
 
                     }
