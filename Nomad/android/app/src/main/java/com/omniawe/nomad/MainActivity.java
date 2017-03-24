@@ -1,34 +1,38 @@
 package com.omniawe.nomad;
 
-import android.content.Intent;
-import android.os.Bundle;
-import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactPackage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import com.omniawe.nomad.generated.ExponentBuildConstants;
+import host.exp.expoview.ExponentActivity;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends ExponentActivity {
 
-    /**
-     * Returns the name of the main component registered from JavaScript.
-     * This is used to schedule rendering of the component.
-     */
-    @Override
-    protected String getMainComponentName() {
-        return "Nomad";
-    }
+  @Override
+  public String publishedUrl() {
+    return "exp://exp.host/@pickleboyonline/nomad";
+  }
 
+  @Override
+  public String developmentUrl() {
+    return ExponentBuildConstants.DEVELOPMENT_URL;
+  }
 
+  @Override
+  public List<String> sdkVersions() {
+    return new ArrayList<>(Arrays.asList("15.0.0"));
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Intent myIntent = new Intent(this, AppLauncher.class);
-        //startActivity(myIntent);
-        // Build GoogleApiClient with AppInvite API for receiving deep links
-    }
+  @Override
+  public List<ReactPackage> reactPackages() {
+    return ((MainApplication) getApplication()).getPackages();
+  }
 
-
-
-
-
+  @Override
+  public boolean isDebug() {
+    return BuildConfig.DEBUG;
+  }
 }

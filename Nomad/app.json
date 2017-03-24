@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "sdkVersion": "15.0.0",
+    "android": {
+      "package": "com.omniawe.nomad"
+    },
+    "name": "Nomad",
+    "slug": "nomad",
+    "version": "0.1.0",
+    "isDetached": true,
+    "detach": {
+      "scheme": "expc59b6aa35ad44c5ba5b3306fabf7ea3a",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.14.0-sdk15.0.0-c07a9392-71db-4330-8452-98080b6b52f1.tar.gz"
+    }
+  }
+}

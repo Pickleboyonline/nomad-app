@@ -1,23 +1,23 @@
 {
   "name": "Nomad",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "react": "^16.0.0-alpha.4",
-    "react-native": "^0.43.0-rc.2",
-    "react-test-renderer": "^15.4.2"
-  },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
-    "react-test-renderer": "15.4.2"
+    "react-native-scripts": "0.0.25",
+    "jest-expo": "^0.3.0",
+    "react-test-renderer": "~15.4.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "android": "react-native-scripts android",
+    "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "expo": "^15.1.0",
+    "react": "~15.4.0",
+    "react-native": "0.42.3"
   }
 }

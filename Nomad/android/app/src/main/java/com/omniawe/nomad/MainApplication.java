@@ -1,43 +1,25 @@
 package com.omniawe.nomad;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
-import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
 
+// Needed for `react-native link`
+// import com.facebook.react.ReactApplication;
 
+public class MainApplication extends MultiDexApplication {
 
-public class MainApplication extends Application implements ReactApplication {
+  // Needed for `react-native link`
+  public List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+        // Add your own packages here!
+        // TODO: add cool native modules
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
-    }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-
-    SoLoader.init(this, /* native exopackage */ false);
+        // Needed for `react-native link`
+        // new MainReactPackage()
+    );
   }
 }
