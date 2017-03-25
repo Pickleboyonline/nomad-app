@@ -11,8 +11,13 @@ import host.exp.expoview.ExponentActivity;
 
 public class AppLauncher extends ExponentActivity {
 
+  public String getUri() {
+    return null;
+  }
+
   @Override
   public String publishedUrl() {
+
     return "exp://exp.host/@pickleboyonline/nomad";
   }
 
