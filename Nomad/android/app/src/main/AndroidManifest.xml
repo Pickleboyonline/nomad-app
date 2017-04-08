@@ -43,8 +43,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".GetDataModule" />
-        <activity android:name=".AnExampleReactPackage"></activity>
+
     </application>
 
 </manifest>

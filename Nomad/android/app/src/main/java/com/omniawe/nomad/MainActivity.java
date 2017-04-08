@@ -13,12 +13,13 @@ public class MainActivity extends ExponentActivity {
 
   @Override
   public String publishedUrl() {
-    return "exp://exp.host/@pickleboyonline/nomad";
+    return "exp://exp.host/@pickleboyonline/test";
   }
 
   @Override
   public String developmentUrl() {
-    return ExponentBuildConstants.DEVELOPMENT_URL;
+    //return ExponentBuildConstants.DEVELOPMENT_URL;
+    return "https://expo.io/@pickleboyonline/test";
   }
 
   @Override
