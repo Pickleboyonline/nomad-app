@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.omniawe.nomad"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.omniawe.nomad">
 
-  <application
-    android:name=".MainApplication"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:supportsRtl="true">
-    <activity android:name=".MainActivity"
-              android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-              android:theme="@style/Theme.Exponent.Light"
-              android:windowSoftInputMode="adjustResize">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.Exponent.Light"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data android:scheme="expc59b6aa35ad44c5ba5b3306fabf7ea3a" />
 
-      <intent-filter>
-        <data android:scheme="expc59b6aa35ad44c5ba5b3306fabf7ea3a"/>
+                <action android:name="android.intent.action.VIEW" />
 
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-      </intent-filter>
-    </activity>
-    <activity android:name=".AppLauncher"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:theme="@style/Theme.Exponent.Light"
-        android:windowSoftInputMode="adjustResize">
-      <intent-filter>
-        <data
-            android:host="open"
-            android:scheme="nomadapp" />
-
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-      </intent-filter>
-
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
         </activity>
-  </application>
+        <activity
+            android:name=".AppLauncher"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.Exponent.Light"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <data
+                    android:host="open"
+                    android:scheme="nomadapp" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GetDataModule" />
+        <activity android:name=".AnExampleReactPackage"></activity>
+    </application>
 
 </manifest>

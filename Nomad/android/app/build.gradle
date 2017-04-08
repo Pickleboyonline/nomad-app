@@ -54,7 +54,7 @@ dependencies {
   compile 'com.android.support:appcompat-v7:24.1.1'
   compile 'com.android.support:multidex:1.0.0'
 
-  
+  compile 'com.google.guava:guava:16.0'
   compile('host.exp.exponent:expoview:15.0.0@aar') {
     exclude group: 'com.facebook.android', module: 'facebook-android-sdk'
     exclude group: 'com.facebook.android', module: 'audience-network-sdk'

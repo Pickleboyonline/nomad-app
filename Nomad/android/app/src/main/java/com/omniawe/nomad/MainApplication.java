@@ -17,7 +17,7 @@ public class MainApplication extends MultiDexApplication {
     return Arrays.<ReactPackage>asList(
         // Add your own packages here!
         // TODO: add cool native modules
-
+            new AnExampleReactPackage()
         // Needed for `react-native link`
         // new MainReactPackage()
     );

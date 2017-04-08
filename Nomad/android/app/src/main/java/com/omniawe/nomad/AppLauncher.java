@@ -3,6 +3,7 @@ package com.omniawe.nomad;
 import android.content.Intent;
 
 import com.facebook.react.ReactPackage;
+import com.google.common.base.Splitter;
 import com.omniawe.nomad.generated.ExponentBuildConstants;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
 import host.exp.expoview.ExponentActivity;
 
 public class AppLauncher extends ExponentActivity {
-
+  private Map<String, String> metadata;
   public String getUri() {
     return null;
   }
@@ -23,7 +24,19 @@ public class AppLauncher extends ExponentActivity {
     Intent intent = getIntent();
     String url = intent.getDataString();
     final Map<String, String> data = parser(url);
+    metadata = data;
+    
     return "exp://exp.host/@pickleboyonline/nomad";
+  }
+
+  public Map<String, String> parser(String url) {
+    String query = url.split("\\?")[1];
+    Map<String, String> map = Splitter.on('&').trimResults().withKeyValueSeparator("=").split(query);
+    return map;
+  }
+
+  public Map<String, String> getData() {
+    return metadata;
   }
 
   @Override
