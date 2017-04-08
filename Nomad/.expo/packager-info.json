@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 8032,
+  "expoServerNgrokUrl": "https://79-myn.pickleboyonline.nomad.exp.direct",
+  "packagerNgrokUrl": "https://packager.79-myn.pickleboyonline.nomad.exp.direct",
+  "ngrokPid": 1616
 }
