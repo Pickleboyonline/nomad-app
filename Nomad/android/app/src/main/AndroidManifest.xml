@@ -32,6 +32,13 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.Exponent.Light"
             android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity
+            android:name=".ExpoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <data
                     android:host="open"

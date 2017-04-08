@@ -9,6 +9,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.react.ReactPackage;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import de.greenrobot.event.EventBus;
 import host.exp.exponent.Constants;
@@ -34,6 +37,8 @@ import host.exp.expoview.ExpoViewBuildConfig;
 import host.exp.expoview.Exponent;
 import host.exp.expoview.ExponentActivity;
 
+
+
 public class AppLauncher extends ExponentActivity {
   private Map<String, String> metadata;
   public String getUri() {
@@ -43,30 +48,11 @@ public class AppLauncher extends ExponentActivity {
   @Override
   public String publishedUrl() {
     Intent intent = getIntent();
-    String url = intent.getDataString();
-    final Map<String, String> data = parser(url);
+    String mdata = intent.getStringExtra("data");
+    String url = intent.getStringExtra("url");
+    final Map<String, String> data = parser(mdata);
     metadata = data;
-    RequestQueue queue = Volley.newRequestQueue(AppLauncher.this);
-
-    String urlRequest ="http://192.168.1.70:4567/data?id=" + data.get("id");
-    StringRequest stringRequest = new StringRequest(Request.Method.GET, urlRequest,
-            new Response.Listener<String>() {
-              @Override
-              public void onResponse(String response) {
-                Log.i("LAUNCHER", "Request worked");
-
-
-
-              }
-            }, new Response.ErrorListener() {
-      @Override
-      public void onErrorResponse(VolleyError error) {
-        Log.i("REQUEST", error.toString());
-      }
-    });
-    queue.add(stringRequest);
-
-    return "exp://exp.host/@pickleboyonline/test";
+    return url;
   }
 
 
@@ -111,4 +97,3 @@ public class AppLauncher extends ExponentActivity {
 
 
 
-  
