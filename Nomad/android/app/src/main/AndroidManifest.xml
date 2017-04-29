@@ -31,9 +31,7 @@
             android:name=".AppLauncher"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.Exponent.Light"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".ExpoActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -50,7 +48,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".NearbyActivity"></activity>
     </application>
 
 </manifest>
